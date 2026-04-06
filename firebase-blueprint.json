@@ -1,0 +1,32 @@
+{
+  "entities": {
+    "Decision": {
+      "title": "Decision Analysis",
+      "description": "A saved decision analysis result.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "The UID of the user who saved the decision." },
+        "decision": { "type": "string", "description": "The original decision prompt." },
+        "type": { "type": "string", "enum": ["pros-cons", "comparison", "swot"] },
+        "result": {
+          "type": "object",
+          "properties": {
+            "title": { "type": "string" },
+            "summary": { "type": "string" },
+            "data": { "type": "object" },
+            "recommendation": { "type": "string" }
+          },
+          "required": ["title", "summary", "data", "recommendation"]
+        },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the decision was saved." }
+      },
+      "required": ["userId", "decision", "type", "result", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/decisions/{decisionId}": {
+      "schema": "Decision",
+      "description": "Collection of saved decision analyses."
+    }
+  }
+}
